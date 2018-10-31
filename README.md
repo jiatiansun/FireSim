@@ -9,7 +9,7 @@ The space that’s being rendered will be discretized into cubical cells. Each g
 This is a compute-intensive application, and will hugely benefit from parallel computation because the update scheme for individual cells is identical. This means that multiple cells can potentially be updated simultaneously with little divergence. 
 
 ## THE CHALLENGE
-	Dependencies between cells are the most challenging part. Since each cell needs to be updated according to the states of nearby cells, there is inherent sequential computation. 
+Dependencies between cells are the most challenging part. Since each cell needs to be updated according to the states of nearby cells, there is inherent sequential computation. 
 
 ## RESOURCES:
 We want to implement Prof. Keenan Crane’s project on Real-Time Simulation and Rendering of 3D Fluids.  [GPUFluid](http://www.cs.cmu.edu/~kmcrane/Projects/GPUFluid/paper.pdf) There is detailed theory introduction as well as pseudo-code for simulation kernels.
