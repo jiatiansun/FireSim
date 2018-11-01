@@ -31,14 +31,14 @@ We consider a physically-based realistic looking real-time generated demo will b
    Rendering will be done using an graphics API, potentially OpenGL.
 
 ## SCHEDULE
-   Nov 1st - Nov 8th: Make toy demo with Processing??(Or make graphical interface??) 
+1. Nov 1st - Nov 8th: Make toy demo with Processing
 			(Midterm of our probability classes will slow us down a little bit)
-   Nov 9th - Nov 15rd: Make CPU version of the fire simulation with very few particles
+2. Nov 9th - Nov 15rd: Make CPU version of the fire simulation with very few particles 
 (Midterm of 418 will also speed us down significantly, so part of jobs will be pushed off to next week before the checkpoint deadline)
-   Nov 16th- Nov 23rd: Submit the project for the checkpoint and starts working on the GPU 
+3. Nov 16th- Nov 23rd: Submit the project for the checkpoint and starts working on the GPU 
  version of the fire simulation
-   Nov 24th - Nov 30th: Accomplish GPU version of the fire simulation
-   Nov 31st - Dec 14th: Accomplish Performance Optimization of the fire simulation
+4. Nov 24th - Nov 30th: Accomplish GPU version of the fire simulation
+5. Nov 31st - Dec 14th: Accomplish Performance Optimization of the fire simulation
 			  (The final week will reduce the time we have to work on the project)
-   Dec 14th - Dec 16th: Creation of final Demo and materials for the poster session
+6. Dec 14th - Dec 16th: Creation of final Demo and materials for the poster session
 
