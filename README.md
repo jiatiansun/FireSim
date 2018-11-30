@@ -41,9 +41,9 @@ As what we planned before, we will showcase a demo of fire simulation in the pos
    Rendering will be done using an graphics API, potentially OpenGL.
 
 ## SCHEDULE Update	
-   Nov 1st - Nov 19th: 
-Made different versions of toy demo with Processing. 
-Specifically, we accomplished ocean simulation by solving Navier Stroke , which can be later adapted to the simulation of fire.
+   Nov 1st - Nov 19th
+   Made different versions of toy demo with Processing. 
+   Specifically, we accomplished ocean simulation by solving Navier Stroke , which can be later adapted to the simulation of fire.
    Nov 20th - Nov 23rd 
    Use Processing to experiment with simulation of other models like runnning river
 
@@ -55,7 +55,9 @@ Specifically, we accomplished ocean simulation by solving Navier Stroke , which 
 	
    Nov 25th - Nov 30th
    Experiment the GPU code with different hardwares, pick one hardware and start optimization based on the hardware. - Caroline/Jackie
+   
    Nov 31st - Dec 14th  
-One person focuses on optimization of basic mechanism of particle rendering, while the other focuses on optimization of fire simulation specifically - Jackie/Caroline 
-		(The final week will reduce the time we have to work on the project)
-   Dec 14th - Dec 16th: Creation of final Demo and materials for the poster session
+   One person focuses on optimization of basic mechanism of particle rendering, while the other focuses on optimization of fire simulation specifically - Jackie/Caroline (The final week will reduce the time we have to work on the project)
+   
+   Dec 14th - Dec 16th 
+   Creation of final Demo and materials for the poster session
