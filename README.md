@@ -21,24 +21,41 @@ Jackie has written a toy engine that has basic camera operations implemented. We
 Physically based simulation of fire. We expect the simulation to be done in real-time. Thus, rendering of one image needs to be rendered in milliseconds.
 We expect to show an interactive demo of the fire simulation, in which a realistic fire burns for a duration of time inside the video. The user can freely rotate the camera to view the fire from different angles. If time allowed, the user can interactively change the position of the fire through mouse motion. Fire-resistant obstacles can additionally be inserted. 
 We consider a physically-based realistic looking real-time generated demo will be considered as achieving the goal of the project from the performance perspective. We will demonstrate also a speedup graph to demonstrate that our project makes efficient use of our resources.
+
 ### HOPE TO ACHIEVE   
 1. Make a more user-friendly graphical interface that can be used interactively in the poster session.
 2. Use the solver to generate interactive smoke
+
+### What We Have Achieved:
+As our fire simulation adapts general simulation of fluid motion via solving Navier-Stokes equations, we explore first simulation of more general fluid, specifically water(ocean). In  the exploration, we gained better understanding of computer graphics theory behind the particle simulation and have successfully created a short demo of simulation of ocean with processing:(Rough Ocean Simulation)[https://youtu.be/bxSOGtfZEEE]
+
+### Expectation for Deliverables:
+We still strongly believe that the fire simulation demo is deliverable by the poster session. As we dive deeper into the simulation algorithm, we gain more confidence in writing faster simulation code. As for the “nice to haves”, it is quite possible that we will generate plenty of simulation in the process of creating fire simulation demo. Specifically, so far, we have already created a small ocean simulation demo. These process demo videos can also be utilized in our final poster session to showcase the different functionality of the same simulation model. However, considering our current process, we are afraid that other “nice to haves” like beautiful user interface will be hard to be achieved before deadline. Instead, we will focus mainly on optimization of different fluid model in the following weeks to make sure that eventually a concrete fire simulation demo can be delivered.
+
+### Plan for Poster Session
+As what we planned before, we will showcase a demo of fire simulation in the poster session. We will also show a graph of the initial speedup of our program and its eventual speedup. Demo video of different kinds of fluid we would come through before the session might be displayed as well.
 
 ## PLATFORM CHOICE 
    Windows & CUDA. 
    Core computation will be done on GPU. Using GPU for this application makes sense since kernel functions for particle update are small, but there are many particles.
    Rendering will be done using an graphics API, potentially OpenGL.
 
-## SCHEDULE
-1. Nov 1st - Nov 8th: Make toy demo with Processing
-			(Midterm of our probability classes will slow us down a little bit)
-2. Nov 9th - Nov 15rd: Make CPU version of the fire simulation with very few particles 
-(Midterm of 418 will also speed us down significantly, so part of jobs will be pushed off to next week before the checkpoint deadline)
-3. Nov 16th- Nov 23rd: Submit the project for the checkpoint and starts working on the GPU 
- version of the fire simulation
-4. Nov 24th - Nov 30th: Accomplish GPU version of the fire simulation
-5. Nov 31st - Dec 14th: Accomplish Performance Optimization of the fire simulation
-			  (The final week will reduce the time we have to work on the project)
-6. Dec 14th - Dec 16th: Creation of final Demo and materials for the poster session
+## SCHEDULE Update	
+   Nov 1st - Nov 19th: 
+Made different versions of toy demo with Processing. 
+Specifically, we accomplished ocean simulation by solving Navier Stroke , which can be later adapted to the simulation of fire.
+   Nov 20th - Nov 23rd 
+   Use Processing to experiment with simulation of other models like runnning river
 
+   Nov 24th - Nov 27th  
+   Use c++ to rewrite the CPU version of fire simulation. 
+
+   Nov 18th - Nov 25th  
+   Transfer the CPU version to GPU version using OpenGl - Caroline/Jackie
+	
+   Nov 25th - Nov 30th
+   Experiment the GPU code with different hardwares, pick one hardware and start optimization based on the hardware. - Caroline/Jackie
+   Nov 31st - Dec 14th  
+One person focuses on optimization of basic mechanism of particle rendering, while the other focuses on optimization of fire simulation specifically - Jackie/Caroline 
+		(The final week will reduce the time we have to work on the project)
+   Dec 14th - Dec 16th: Creation of final Demo and materials for the poster session
