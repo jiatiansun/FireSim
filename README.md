@@ -1,7 +1,8 @@
+
 ## Summary
 This project aims to render fire in real-time using physics-based methods. 
 All particle computation will be done on GPU. Rendering will be done on GPU through the use of an graphics API (potentially OpenGL)
-
+[Source Code](https://github.com/omegaiota/NavierStokesFire)
 ## BACKGROUND
 
 The fire will be simulated through simulation of fluid motion via solving Navier-Stokes equations.
