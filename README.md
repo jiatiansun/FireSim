@@ -43,7 +43,9 @@ As what we planned before, we will showcase a demo of fire simulation in the pos
 ## SCHEDULE Update	
    Nov 1st - Nov 19th
    Made different versions of toy demo with Processing. 
-   Specifically, we accomplished ocean simulation by solving Navier Stroke , which can be later adapted to the simulation of fire.
+   Specifically, we accomplished ocean simulation by solving Navier Stroke , 
+   which can be later adapted to the simulation of fire.
+   
    Nov 20th - Nov 23rd 
    Use Processing to experiment with simulation of other models like runnning river
 
