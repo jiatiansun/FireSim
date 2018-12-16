@@ -179,7 +179,6 @@ Eventually, for simulation of fire inside a 200 x 200 x 200 box, we can achieve 
 The image above is discussed in Section 3.3 and it shows that FPS increases as number of threads in each block dimension increases. Thus, we choose to assign $16 \times 8 \times 8$ threads to each block.
 
 ## Fps at different problem size
-![alt text](https://github.com/jiatiansun/FireSim/blob/master/fps_vs_box_size.png "Logo Title Text 1")
 ![alt text](fps_vs_box_size.png)
 
 FPS decreases as the problem size increase. This is because that one line in our implementation makes use of a DirectX function called swapChain. This function transfers the prepared framebuffer from GPU to present it on the screen. This step is necessary and its cost cannot be avoided. As our problem size increases,for example, the n* n*n rendering box becomes 2n * 2n * 2n as shown in the graph, the time taken at this step of displaying the image quadratically increases because the image size becomes 4 times as large as before. Also, since operation takes 99\% for our computation time, so it bottlenecks our performance as the box size changes. 
