@@ -171,6 +171,7 @@ Another idea we had at early stage was to store locations of particles instead o
 
 ## Deliverable
 ![alt text](https://github.com/jiatiansun/FireSim/blob/master/fire.png "Logo Title Text 1")
+![alt text](https://github.com/jiatiansun/FireSim/blob/master/green.png "Logo Title Text 1")
 
 Above is a screenshot of our final demo. The user can change the source of fire by dragging mouse around. User can also view the 3D box by rotating the box using right mouse drag.
 
