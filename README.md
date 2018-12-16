@@ -174,7 +174,7 @@ FPS decreases as the problem size increase. This is because that one line in our
 \subsection{proportion of running time at different step}
 \includegraphics[0.8]{table.png}
 This table demonstrates what previously described. SwapChain takes 99\% of our computation time.
-\section{Distribution of Work}
+## Distribution of Work
 Jackie - toy sequential version implementation and algorithm of solving Navier Stoke equations. Adjust the rendering effect of the GPU version.
 
 Caroline - Rewrite the code for GPU and optimization of code for GPU. 
