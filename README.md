@@ -1,8 +1,6 @@
 
 
 # PDF
-  <iframe src="https://github.com/jiatiansun/FireSim/blob/master/15_418_Final_Project.pdf" width="800px" height="200px"></iframe>  
-
  <object data="https://github.com/jiatiansun/FireSim/blob/master/15_418_Final_Project.pdf" type="application/pdf" width="800px" height="200px">
     <embed src="https://github.com/jiatiansun/FireSim/blob/master/15_418_Final_Project.pdf">
         <p>This browser does not support PDFs. Please download the PDF to view it: <a href="https://github.com/jiatiansun/FireSim/blob/master/15_418_Final_Project.pdf">Download PDF</a>.</p>
