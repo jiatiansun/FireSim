@@ -2,9 +2,9 @@
 
 # PDF
 
- <object data="https://drive.google.com/open?id=1bv9hkwPw6nZY4GayqbAmyd-vC5wSDxuN" type="application/pdf" width="800px" height="800px">
-    <embed src="https://drive.google.com/open?id=1bv9hkwPw6nZY4GayqbAmyd-vC5wSDxuN">
-        <p>This browser does not support PDFs. Please download the PDF to view it: <a href="https://drive.google.com/open?id=1bv9hkwPw6nZY4GayqbAmyd-vC5wSDxuN">Download PDF</a>.</p>
+ <object data="https://github.com/jiatiansun/FireSim/blob/master/15_418_Final_Project.pdf" type="application/pdf" width="800px" height="800px">
+    <embed src="https://github.com/jiatiansun/FireSim/blob/master/15_418_Final_Project.pdf">
+        <p>This browser does not support PDFs. Please download the PDF to view it: <a href="https://github.com/jiatiansun/FireSim/blob/master/15_418_Final_Project.pdf">Download PDF</a>.</p>
     </embed>
 </object>
 
