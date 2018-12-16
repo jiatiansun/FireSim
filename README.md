@@ -186,6 +186,7 @@ FPS decreases as the problem size increase. This is because that one line in our
 
 This table demonstrates what previously described. SwapChain takes 99\% of our computation time.
 ![alt text](distribution_3.png)
+
 This is the run time distribution for all shading process. Jacobi seems to have significantly higher run-time than other shading process. This is because that we need to go over 10 iterations of Jacobi calculation to coverge to an accurate calculation of diffusion. Therefore, this shading process is about 10 times slower than the other calcuation. 
 
 # Distribution of Work
