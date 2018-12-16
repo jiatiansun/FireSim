@@ -2,7 +2,6 @@
 
 # Fire!
 
-![alt text](https://github.com/jiatiansun/FireSim/blob/master/fire.png)
 ![alt text](fire.png)
 
 # Summary 
@@ -40,7 +39,7 @@ We simulate fire by dividing the space into $n \times n \times n$ cubical cells,
 The program first initializes all resources (constant buffers, textures) vis Direct3D API call, then enters the main loop. In the main loop, particle states are first updated on GPU, then the results are rendered and presented.
 ## GPU Shaders
 All shaders are implemented as compute shaders, since our application doesn't required the standard graphics pipeline. There are five shaders (advect, addForce, divergence, Jacobi, project)  Navier-Stokes simulation, corresponding to the four stages of simulation. There is one shader used for rendering.
-![](https://github.com/jiatiansun/FireSim/blob/master/pipeline.png)
+![alt text](pipeline.png)
 
 ## Advection
 Advection simulates the process of the fluid transporting itself in a field. This is simulated by first calculating how much the particle has traveled using its velocity, then updating velocity using the sampled quantity at the new position. This compute shader is executed in groups of $16 \times 4 \times 4$ threads. The code snippet for advect shader is shown below.
@@ -143,7 +142,7 @@ To parallel the rendering of the two dimensional display image, We divide the di
 ## Serial Algorithm vs Parallel Algorithm
 As for our serial code implementation, we do not need to consider the dependency among steps of solving the Navier stoke equation. However, to implement our project in parallel we need to pick out the parts of differential equation calculation that are dependent on each other and reorder the computation sequence to reduce synchronization between threads. 
 Besides, in the parallel version, we need to reconsider how the cache performance might be influenced by the architecture of GPU. Specifically, since each particle in the simulation needs to calculate its Laplacian by getting value from all of its neighbor particles, at the boundary of each block we assigned to GPU, the GPU will inevitably access data that are not included in the shared memory of the GPU block and result in low arithmetic intensity. To increase the arithmetic intensity, we configure each block to have almost equal width, height and depth so that for equal amount of computation, least amount of access to memory outside of shared memory of the block would be triggered. 
-![alt text](https://github.com/jiatiansun/FireSim/blob/master/arith_intense.png "Logo Title Text 1")
+![alt text](arith_intense.png)
 
 As shown in the image above, the uncolored part is the amount of access each block as to the global memory. The block configuration in a is worse than b, since a needs has lower arithmetic intensity. If we keep increasing the size of our block like what is done in b, then the arithmetic will keep increasing at the cost of increasing the granularity of each task and the block data also might be too large to be fit into the shared memory of a GPU block. Thus, to achieve the high spatial locality, we tested different configurations of blocks. 
 
