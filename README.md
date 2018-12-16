@@ -50,7 +50,6 @@ Because fluids that are viscous have a resistance to flow, diffusion of velocity
             
 The code snippet for divergence shader is presented below. An micro optimization is done by unrolling the for loop, which allows the system to determine memory access pattern in advance.
        
-\begin{Verbatim}[fontsize=\small]
 	float pL, pR, pF, pB, pU, pD;
 	float divergence[4];
 	[unroll]
@@ -65,11 +64,9 @@ The code snippet for divergence shader is presented below. An micro optimization
 		divergence[j] = (pR - pL + pB - pF + pD - pU) / 2;
 	}
 	divergenceRW[i] = (float4)divergence;
-\end{Verbatim}
 
             
 The code snippet for Jacobi iteration is presented below:
-\begin{Verbatim}[fontsize=\small]
     uint3 cL = uint3(max(i.x - 1, 0), i.y, i.z);
 	uint3 cR = uint3(min(i.x + 1, dim.x - 1), i.y, i.z);
 	uint3 cD = uint3(i.x, max(i.y - 1, 0), i.z);
@@ -85,12 +82,10 @@ The code snippet for Jacobi iteration is presented below:
 	float4 pB = pressure[cB];
 	
 	pressureRW[i] = (pR + pL + pF + pB + pD + pU - divergence[i]) / 6;
-\end{Verbatim}
             
 ### Projection
        The projection step aims at projecting the divergent velocity field to its divergence-free component. This will give us the final updated velocity for each particle. Projection is computationally similar to that of calculating divergence.
        
- \begin{Verbatim}[fontsize=\small]
 	uint3 cL = uint3(max(i.x - 1, 0), i.y, i.z);
 	float4 pL = float4(pressure[cL].w, pressure[i + uint3(0, 0, 0)].xyz);
 	uint3 cR = uint3(min(i.x + 1, dim.x - 1), i.y, i.z);
@@ -120,7 +115,6 @@ The code snippet for Jacobi iteration is presented below:
 	speedRW[i] = length(s.xyz);
 	i.x++;
 	...
-\end{Verbatim}      
 
 ## Optimization
 ### Overview
@@ -135,7 +129,7 @@ To parallel the rendering of the two dimensional display image, We divide the di
 ### Serial Algorithm vs Parallel Algorithm
 As for our serial code implementation, we do not need to consider the dependency among steps of solving the Navier stoke equation. However, to implement our project in parallel we need to pick out the parts of differential equation calculation that are dependent on each other and reorder the computation sequence to reduce synchronization between threads. 
 Besides, in the parallel version, we need to reconsider how the cache performance might be influenced by the architecture of GPU. Specifically, since each particle in the simulation needs to calculate its Laplacian by getting value from all of its neighbor particles, at the boundary of each block we assigned to GPU, the GPU will inevitably access data that are not included in the shared memory of the GPU block and result in low arithmetic intensity. To increase the arithmetic intensity, we configure each block to have almost equal width, height and depth so that for equal amount of computation, least amount of access to memory outside of shared memory of the block would be triggered. 
-\includegraphics[scale = 0.6]{arith_intense.png}
+
 As shown in the image above, the uncolored part is the amount of access each block as to the global memory. The block configuration in a is worse than b, since a needs has lower arithmetic intensity. If we keep increasing the size of our block like what is done in b, then the arithmetic will keep increasing at the cost of increasing the granularity of each task and the block data also might be too large to be fit into the shared memory of a GPU block. Thus, to achieve the high spatial locality, we tested different configurations of blocks. 
 
 ### Iterations of Optimization
