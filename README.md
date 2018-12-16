@@ -1,7 +1,13 @@
 
+
+  <object data="/assets/projects/quilt/SCF2018photo.pdf" type="application/pdf" width="1600px" height="1000px">
+    <embed src="/assets/projects/quilt/SCF2018photo.pdf">
+        <p>This browser does not support PDFs. Please download the PDF to view it: <a href="/assets/projects/quilt/SCF2018photo.pdf">Download PDF</a>.</p>
+    </embed>
+</object>
+
 ## Summary
 This project aims to render fire in real-time by solving Navier Stoke equations. We first implemented particle state simulation and rendering on CPU using Processing and Java, then we switched to using Direct3D to run both simulation and rendering on GPU via compute shaders.
-[Source Code](https://github.com/omegaiota/NavierStokesFire)
 ## BACKGROUND
 ### Simulation of Navier-Stokes
 The Navier-Stokes equations are widely used for simulating fluids. The equations specify the relationship between mass and momentum of fluids, which can be used to simulate phenomenons including water, cloud, smoke, and fire. Our projects simulates fire.
