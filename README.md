@@ -2,7 +2,7 @@
 
 # Fire!
 
-  ![alt text](https://github.com/jiatiansun/FireSim/blob/master/fire.png "Logo Title Text 1")
+ ![alt text](https://github.com/jiatiansun/FireSim/blob/master/fire.png "Logo Title Text 1")
 <a href="https://github.com/jiatiansun/FireSim/blob/master/fire.png"> <img src="https://github.com/jiatiansun/FireSim/blob/master/fire.png"></a>
 ![](https://github.com/jiatiansun/FireSim/blob/master/fire.png)
 
@@ -17,7 +17,6 @@ This project aims to render fire in real-time by solving Navier Stoke equations.
 The Navier-Stokes equations are widely used for simulating fluids. The equations specify the relationship between mass and momentum of fluids, which can be used to simulate phenomenons including water, cloud, smoke, and fire. Our projects simulates fire.
 
 If we define $\vec{u}$ as the velocity field, $p$ as the pressure field, $\rho$ as the density field, the Navier-Stokes equations can be expressed as 
-![alt text](https://github.com/jiatiansun/FireSim/blob/master/Screen Shot 2018-12-16 at 2.06.23 PM.png "Logo Title Text 1")
 The common algorithm for simulating Navier-Stokes is using the "stable fluids" method proposed by Stam [Stam 1999]. The simulation divides the space being rendered into a 3D array of cubicle cells, each representing the state of the fluid particle at a particular location. Each grid cell is responsible for storing the physics state such as temperature, pressure, and velocity. In each time step, the simulation is broken down into four operations: Advect, Add Forces, Diffuse and Project. At each simulation time step, the four operations are applied to each particle in the grid. Cells at the boundary must be handled specially. 
 	
 To obtain a realistic simulation of fluids, a large number of particles and small time step is desired. However, even if we simulate each dimension with only 100 particles, there are $100^3$ particles in total that we need to keep track of. 
