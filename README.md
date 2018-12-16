@@ -157,8 +157,7 @@ Also, considering the overhead for communication between processes, we needed to
 
 Then to further improve our optimization, we think about compressing the texture with sparse matrix. Since the fire is not evenly spread out in the whole space. Normally, it is a speck of light in the space. Thus, we think it would be a good idea to represent state of particles inside each cell of the box using sparse matrix. Yet, this also indicates overhead for accessing a index table that stores index for nonzero data. After we finished the implementation of this sparse matrix representation of textures. There was not much improvement in the frame per second. Also, if the scene becomes smoky after we ignite multiple fire in the scene, the project becomes even a little bit slower than usual because of having the overhead of indirect access of data.
 
-Another idea we had at early stage was to store locations of particles instead of discretizing the space using the Eulerian method. We did this since we thought possibly because particles are not uniformly distributed in space, we can save a lot of memory storage and fit better into cache with this. Yet, it turned out that this data structure has high overhead for finding neighboring particles, which made the implementation of it complicated and not helpful in improving the performance of the project.
-
+Another idea we had at early stage was to track a set of particles using Lagrangian method instead of discretizing the space using the Eulerian method. We think the advantages of using Lagrangian method is that at some moments of the simulation of burning fire, particles would not be uniformly distributed in space, we can save some memory storage and fit better into cache if we only consider rendering positions taken up by particles. Yet, the disadvantage of this data structure is that it has high overhead for finding neighboring particles, which made it inferior to the Eulerian method which has direct access to all neighbors by accessing nearby cells of the texture.
 ## Results
 
 ## Deliverable
@@ -189,10 +188,13 @@ FPS decreases as the problem size increase. This is because that one line in our
 ![alt text](table.png)
 
 This table demonstrates what previously described. SwapChain takes 99\% of our computation time.
-# Distribution of Work
-Jackie - toy sequential version implementation and algorithm of solving Navier Stoke equations. Adjust the rendering effect of the GPU version.
+![alt text](distribution_3.png)
+This is the run time distribution for all shading process. Jacobi seems to have significantly higher run-time than other shading process. This is because that we need to go over 10 iterations of Jacobi calculation to coverge to an accurate calculation of diffusion. Therefore, this shading process is about 10 times slower than the other calcuation. 
 
-Caroline - Rewrite the code for GPU and optimization of code for GPU. 
+# Distribution of Work
+Jackie - toy sequential version implementation and algorithm of solving Navier Stoke equations. Adjust the rendering effect of the GPU version. 50%
+
+Caroline - Rewrite the code for GPU and optimization of code for GPU. 50\% 
 
 # References
 *    Stam, Jos. "Stable fluids." Proceedings of the 26th annual conference on Computer graphics and interactive techniques. ACM Press/Addison-Wesley Publishing Co., 1999.
