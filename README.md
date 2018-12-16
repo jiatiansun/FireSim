@@ -24,7 +24,7 @@ There are some algorithmic constraints to how much the computation can be optimi
 
 	
 ### Environment
-  We used two laptops running on Windos 10 for our development. The first laptop features a 6-core i7 CPU with an NVIDIA GeForce GTX1070 GPU.   The second laptop features a 4-core i7 CPU with an NVIDIA GTX 970M GPU. 
+  We used two laptops running on Windows 10 for our development. The first laptop features a 6-core i7 CPU with an NVIDIA GeForce GTX1070 GPU.   The second laptop features a 4-core i7 CPU with an NVIDIA GTX 970M GPU. 
 	
 
 ## Approach
@@ -155,11 +155,11 @@ Another idea we had at early stage was to store locations of particles instead o
 ### Deliverable
 \includegraphics[width = 0.5\linewidth]{fire.png}
 
-Above is a screenshot of our final demo. The user can change the source of fire by dragging mouse around. User can also view the 3D box by rotating the box using right mouse drag.
+Above is a screenshot of our final demo. Our final deliverable is an interactive demo of the fire simulation. The user can change the source of fire by dragging mouse around. User can also view the 3D box by rotating the box using right mouse drag.
 
 
-### Goal
-Our initial goal of this project was to achieve real time simulation of fire. Animation looks acceptable to human eyes with at least 8 frames per second and animation with 32 or higher frames per second are equally good for human eyes. Therefore, our initial goal was to achieve at least 8 frames per second simulation. 
+### Performance
+The goal of this project was to achieve real time simulation of fire. Animation looks acceptable to human eyes with at least 8 frames per second and animation with 32 or higher frames per second are equally good for human eyes. Therefore, our initial goal was to achieve at least 8 frames per second simulation. 
 Eventually, for simulation of fire inside a 200 x 200 x 200 box, we can achieve 37 FPS on the machine with NVIDIA GTX 970M GPU and 70 FPS on the machine with NVIDIA GeForce 1070 GPU.
 
 ### Fps at different assignment of Threads per block
