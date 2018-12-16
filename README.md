@@ -3,6 +3,7 @@
 # Fire!
 
 ![alt text](https://github.com/jiatiansun/FireSim/blob/master/fire.png)
+![alt text](fire.png)
 
 # Summary 
 
