@@ -151,6 +151,8 @@ To parallel the rendering of the two dimensional display image, We divide the di
 As for our serial code implementation, we do not need to consider the dependency among steps of solving the Navier stoke equation. However, to implement our project in parallel we need to pick out the parts of differential equation calculation that are dependent on each other and reorder the computation sequence to reduce synchronization between threads. 
 Besides, in the parallel version, we need to reconsider how the cache performance might be influenced by the architecture of GPU. Specifically, since each particle in the simulation needs to calculate its Laplacian by getting value from all of its neighbor particles, at the boundary of each block we assigned to GPU, the GPU will inevitably access data that are not included in the shared memory of the GPU block and result in low arithmetic intensity. To increase the arithmetic intensity, we configure each block to have almost equal width, height and depth so that for equal amount of computation, least amount of access to memory outside of shared memory of the block would be triggered. 
 \includegraphics[scale = 0.6]{arith_intense.png}
+![alt text](https://github.com/jiatiansun/FireSim/blob/master/arith_intense.png "Logo Title Text 1")
+
 As shown in the image above, the uncolored part is the amount of access each block as to the global memory. The block configuration in a is worse than b, since a needs has lower arithmetic intensity. If we keep increasing the size of our block like what is done in b, then the arithmetic will keep increasing at the cost of increasing the granularity of each task and the block data also might be too large to be fit into the shared memory of a GPU block. Thus, to achieve the high spatial locality, we tested different configurations of blocks. 
 
 
@@ -180,9 +182,9 @@ Above is a screenshot of our final demo. The user can change the source of fire 
 Our initial goal of this project was to achieve real time simulation of fire. Animation looks acceptable to human eyes with at least 8 frames per second and animation with 32 or higher frames per second are equally good for human eyes. Therefore, our initial goal was to achieve at least 8 frames per second simulation. 
 Eventually, for simulation of fire inside a 200 x 200 x 200 box, we can achieve 37 FPS on the machine with NVIDIA GTX 970M GPU and 70 FPS on the machine with NVIDIA GeForce 1070 GPU.
 
-\subsection{Fps at different assignment of Threads per block}
+## Fps at different assignment of Threads per block
 ![alt text](fps_vs_dim.png )
-\includegraphics[0.8\linewidth ]{fps_vs_dim.png}
+![alt text](https://github.com/jiatiansun/FireSim/blob/master/fps_vs_dim.png "Logo Title Text 1")
 
 The image above is discussed in Section 3.3 and it shows that FPS increases as number of threads in each block dimension increases. Thus, we choose to assign $16 \times 8 \times 8$ threads to each block.
 
@@ -192,8 +194,8 @@ The image above is discussed in Section 3.3 and it shows that FPS increases as n
 
 FPS decreases as the problem size increase. This is because that one line in our implementation makes use of a DirectX function called swapChain. This function transfers the prepared framebuffer from GPU to present it on the screen. This step is necessary and its cost cannot be avoided. As our problem size increases,for example, the n* n*n rendering box becomes 2n * 2n * 2n as shown in the graph, the time taken at this step of displaying the image quadratically increases because the image size becomes 4 times as large as before. Also, since operation takes 99\% for our computation time, so it bottlenecks our performance as the box size changes. 
 ## proportion of running time at different step
-\includegraphics[0.8]{table.png}
 ![alt text](table.png )
+![alt text](https://github.com/jiatiansun/FireSim/blob/master/table.png "Logo Title Text 1")
 
 This table demonstrates what previously described. SwapChain takes 99\% of our computation time.
 # Distribution of Work
