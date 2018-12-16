@@ -3,6 +3,7 @@
 # Fire!
 
   ![alt text](https://github.com/jiatiansun/FireSim/blob/master/fire.png "Logo Title Text 1")
+<a href="https://github.com/jiatiansun/FireSim/blob/master/fire.png"> <img src="https://github.com/jiatiansun/FireSim/blob/master/fire.png"></a>
 
 # Summary 
 
