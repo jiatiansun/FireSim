@@ -1,8 +1,10 @@
 
 
-  <object data="/assets/projects/quilt/SCF2018photo.pdf" type="application/pdf" width="1600px" height="1000px">
-    <embed src="/assets/projects/quilt/SCF2018photo.pdf">
-        <p>This browser does not support PDFs. Please download the PDF to view it: <a href="/assets/projects/quilt/SCF2018photo.pdf">Download PDF</a>.</p>
+# PDF
+
+ <object data="https://drive.google.com/open?id=1bv9hkwPw6nZY4GayqbAmyd-vC5wSDxuN" type="application/pdf" width="800px" height="800px">
+    <embed src="https://drive.google.com/open?id=1bv9hkwPw6nZY4GayqbAmyd-vC5wSDxuN">
+        <p>This browser does not support PDFs. Please download the PDF to view it: <a href="https://drive.google.com/open?id=1bv9hkwPw6nZY4GayqbAmyd-vC5wSDxuN">Download PDF</a>.</p>
     </embed>
 </object>
 
