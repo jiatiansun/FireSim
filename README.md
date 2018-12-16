@@ -8,14 +8,16 @@
 </object>
 
 # Summary 
-	This project aims to render fire in real-time by solving Navier Stoke equations. We first implemented particle state simulation and rendering on CPU using Processing and Java, then we switched to using Direct3D to run both simulation and rendering on GPU via compute shaders.
+
+This project aims to render fire in real-time by solving Navier Stoke equations. We first implemented particle state simulation and rendering on CPU using Processing and Java, then we switched to using Direct3D to run both simulation and rendering on GPU via compute shaders.
 
 # Background
 
 ## Simulation of Navier-Stokes
-	The Navier-Stokes equations are widely used for simulating fluids. The equations specify the relationship between mass and momentum of fluids, which can be used to simulate phenomenons including water, cloud, smoke, and fire. Our projects simulates fire.
+The Navier-Stokes equations are widely used for simulating fluids. The equations specify the relationship between mass and momentum of fluids, which can be used to simulate phenomenons including water, cloud, smoke, and fire. Our projects simulates fire.
 
-	If we define $\vec{u}$ as the velocity field, $p$ as the pressure field, $\rho$ as the density field, the Navier-Stokes equations can be expressed as 
+If we define $\vec{u}$ as the velocity field, $p$ as the pressure field, $\rho$ as the density field, the Navier-Stokes equations can be expressed as 
+
 	\begin{equation}
 	    \frac{\partial \vec{u}}{\partial t} = - (\vec{u} \cdot \nabla)\vec{u}+ \nu \nabla^2+\vec{u} - \frac{1}{\rho}\nabla p + \vec{f}\\
 	\end{equation}
@@ -23,34 +25,34 @@
 	    \nabla \cdot \vec{u} = 0
 	\end{equation}
 	
-	The common algorithm for simulating Navier-Stokes is using the "stable fluids" method proposed by Stam [Stam 1999]. The simulation divides the space being rendered into a 3D array of cubicle cells, each representing the state of the fluid particle at a particular location. Each grid cell is responsible for storing the physics state such as temperature, pressure, and velocity. In each time step, the simulation is broken down into four operations: Advect, Add Forces, Diffuse and Project. At each simulation time step, the four operations are applied to each particle in the grid. Cells at the boundary must be handled specially. 
+The common algorithm for simulating Navier-Stokes is using the "stable fluids" method proposed by Stam [Stam 1999]. The simulation divides the space being rendered into a 3D array of cubicle cells, each representing the state of the fluid particle at a particular location. Each grid cell is responsible for storing the physics state such as temperature, pressure, and velocity. In each time step, the simulation is broken down into four operations: Advect, Add Forces, Diffuse and Project. At each simulation time step, the four operations are applied to each particle in the grid. Cells at the boundary must be handled specially. 
 	
-	To obtain a realistic simulation of fluids, a large number of particles and small time step is desired. However, even if we simulate each dimension with only 100 particles, there are $100^3$ particles in total that we need to keep track of. 
+To obtain a realistic simulation of fluids, a large number of particles and small time step is desired. However, even if we simulate each dimension with only 100 particles, there are $100^3$ particles in total that we need to keep track of. 
 	
-	However, since each grid cell is updated using the same scheme (besides cells at the boundary), and  only reference cells nearby (if any). This highly parallel, coherent nature of the simulation algorithm makes GPU a good candidate for this application.  
+However, since each grid cell is updated using the same scheme (besides cells at the boundary), and  only reference cells nearby (if any). This highly parallel, coherent nature of the simulation algorithm makes GPU a good candidate for this application.  
 	
-    There are some algorithmic constraints to how much the computation can be optimized. For example , each of the four operations, namely advection, force addition, diffusion and projection, depends on the output of the previous stage and cannot be parallelized. Each time step also depends on the previous time step.
+There are some algorithmic constraints to how much the computation can be optimized. For example , each of the four operations, namely advection, force addition, diffusion and projection, depends on the output of the previous stage and cannot be parallelized. Each time step also depends on the previous time step.
 
 	
-	## Environment
-	    We used two laptops running on Windos 10 for our development. The first laptop features a 6-core i7 CPU with an NVIDIA GeForce GTX1070 GPU.   The second laptop features a 4-core i7 CPU with an NVIDIA GTX 970M GPU. 
+## Environment
+We used two laptops running on Windos 10 for our development. The first laptop features a 6-core i7 CPU with an NVIDIA GeForce GTX1070 GPU.   The second laptop features a 4-core i7 CPU with an NVIDIA GTX 970M GPU. 
 	
 
 # Approach
-
-	We uses Direct3D API and C++ for our CPU implementation and HLSL (high Level Shading Language) for our GPU shader programs implementation. We are targeting an x64 machine with an NVIDIA GeForce GPU.
+We uses Direct3D API and C++ for our CPU implementation and HLSL (high Level Shading Language) for our GPU shader programs implementation. We are targeting an x64 machine with an NVIDIA GeForce GPU.
 	
 ## References
-	    Our implementation references from a few sources listed in the References section.
+Our implementation references from a few sources listed in the References section.
+
 ## CPU
-        We simulate fire by dividing the space into $n \times n \times n$ cubical cells, where n is chosen to be 200 in our implementation. Each cell is simulated using one particle. Each state that the particles are associated with are implemented using an array of $n$ 2D textures with size $n \times n$. Specifically, the states we are simulating are direction of velocity, speed, divergence and pressure. In each time step, the values in the textures are updated in four stages according Navier-Stokes.
+We simulate fire by dividing the space into $n \times n \times n$ cubical cells, where n is chosen to be 200 in our implementation. Each cell is simulated using one particle. Each state that the particles are associated with are implemented using an array of $n$ 2D textures with size $n \times n$. Specifically, the states we are simulating are direction of velocity, speed, divergence and pressure. In each time step, the values in the textures are updated in four stages according Navier-Stokes.
         
-        The program first initializes all resources (constant buffers, textures) vis Direct3D API call, then enters the main loop. In the main loop, particle states are first updated on GPU, then the results are rendered and presented.
-    ## GPU Shaders
-        All shaders are implemented as compute shaders, since our application doesn't required the standard graphics pipeline. There are five shaders (advect, addForce, divergence, Jacobi, project)  Navier-Stokes simulation, corresponding to the four stages of simulation. There is one shader used for rendering.
+The program first initializes all resources (constant buffers, textures) vis Direct3D API call, then enters the main loop. In the main loop, particle states are first updated on GPU, then the results are rendered and presented.
+## GPU Shaders
+All shaders are implemented as compute shaders, since our application doesn't required the standard graphics pipeline. There are five shaders (advect, addForce, divergence, Jacobi, project)  Navier-Stokes simulation, corresponding to the four stages of simulation. There is one shader used for rendering.
         
 ## Advection
-        Advection simulates the process of the fluid transporting itself in a field. This is simulated by first calculating how much the particle has traveled using its velocity, then updating velocity using the sampled quantity at the new position. This compute shader is executed in groups of $16 \times 4 \times 4$ threads. The code snippet for advect shader is shown below.
+Advection simulates the process of the fluid transporting itself in a field. This is simulated by first calculating how much the particle has traveled using its velocity, then updating velocity using the sampled quantity at the new position. This compute shader is executed in groups of $16 \times 4 \times 4$ threads. The code snippet for advect shader is shown below.
     	
 	float3 newPos = i - velocity[i];
     	newPos = (newPos + 0.5) / dim;
@@ -58,12 +60,12 @@
     	
         
 ## AddForce
-            Add force accounts for how the environment acts external force on the system. In our system, the mouse takes impulse input from the user, and particles around the mouse takes this force into account.
+Add force accounts for how the environment acts external force on the system. In our system, the mouse takes impulse input from the user, and particles around the mouse takes this force into account.
             
 ## Diffusion
-            Because fluids that are viscous have a resistance to flow, diffusion of velocity occurs when fluids flow.  The viscous equation, when formulated in discretized form, is in the form of Poisson equations for velocity. An iterative technique for solving Poisson equations is called Jacobi iteration. This technique needs to be executed many times for it to converge. This can be cheaply done on GPU. In our implementation, we run Jacobi iteration 10 times in each time stamp. Jacobi technique requires calculating the divergence of velocity, then using divergence and velocity to calculate the new pressure value.
+Because fluids that are viscous have a resistance to flow, diffusion of velocity occurs when fluids flow.  The viscous equation, when formulated in discretized form, is in the form of Poisson equations for velocity. An iterative technique for solving Poisson equations is called Jacobi iteration. This technique needs to be executed many times for it to converge. This can be cheaply done on GPU. In our implementation, we run Jacobi iteration 10 times in each time stamp. Jacobi technique requires calculating the divergence of velocity, then using divergence and velocity to calculate the new pressure value.
             
-            The code snippet for divergence shader is presented below. An micro optimization is done by unrolling the for loop, which allows the system to determine memory access pattern in advance.
+The code snippet for divergence shader is presented below. An micro optimization is done by unrolling the for loop, which allows the system to determine memory access pattern in advance.
        
        
  	float pL, pR, pF, pB, pU, pD;
@@ -100,11 +102,11 @@
 	pressureRW[i] = (pR + pL + pF + pB + pD + pU - divergence[i]) / 6;
 	
 ## Rendering
-	    We render each particle using speed, calculated using the L2 norm of velocity of each particle. Speed is linear interpolated with two colors, representing fire of low 
+We render each particle using speed, calculated using the L2 norm of velocity of each particle. Speed is linear interpolated with two colors, representing fire of low 
 
              
 ## Projection
-       The projection step aims at projecting the divergent velocity field to its divergence-free component. This will give us the final updated velocity for each particle. Projection is computationally similar to that of calculating divergence.
+The projection step aims at projecting the divergent velocity field to its divergence-free component. This will give us the final updated velocity for each particle. Projection is computationally similar to that of calculating divergence.
        
  	uint3 cL = uint3(max(i.x - 1, 0), i.y, i.z);
 	float4 pL = float4(pressure[cL].w, pressure[i + uint3(0, 0, 0)].xyz);
@@ -150,7 +152,6 @@ To parallel the rendering of the two dimensional display image, We divide the di
 ## Serial Algorithm vs Parallel Algorithm
 As for our serial code implementation, we do not need to consider the dependency among steps of solving the Navier stoke equation. However, to implement our project in parallel we need to pick out the parts of differential equation calculation that are dependent on each other and reorder the computation sequence to reduce synchronization between threads. 
 Besides, in the parallel version, we need to reconsider how the cache performance might be influenced by the architecture of GPU. Specifically, since each particle in the simulation needs to calculate its Laplacian by getting value from all of its neighbor particles, at the boundary of each block we assigned to GPU, the GPU will inevitably access data that are not included in the shared memory of the GPU block and result in low arithmetic intensity. To increase the arithmetic intensity, we configure each block to have almost equal width, height and depth so that for equal amount of computation, least amount of access to memory outside of shared memory of the block would be triggered. 
-\includegraphics[scale = 0.6]{arith_intense.png}
 ![alt text](https://github.com/jiatiansun/FireSim/blob/master/arith_intense.png "Logo Title Text 1")
 
 As shown in the image above, the uncolored part is the amount of access each block as to the global memory. The block configuration in a is worse than b, since a needs has lower arithmetic intensity. If we keep increasing the size of our block like what is done in b, then the arithmetic will keep increasing at the cost of increasing the granularity of each task and the block data also might be too large to be fit into the shared memory of a GPU block. Thus, to achieve the high spatial locality, we tested different configurations of blocks. 
