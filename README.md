@@ -36,7 +36,7 @@ We simulate fire by dividing the space into $n \times n \times n$ cubical cells,
         
 The program first initializes all resources (constant buffers, textures) vis Direct3D API call, then enters the main loop. In the main loop, particle states are first updated on GPU, then the results are rendered and presented.
 ### GPU Shaders
-        All shaders are implemented as compute shaders, since our application doesn't required the standard graphics pipeline. There are four shaders for Navier-Stokes simulation (advect, addForce,  divergence, project), one shader for rendering.
+All shaders are implemented as compute shaders, since our application doesn't required the standard graphics pipeline. There are four shaders for Navier-Stokes simulation (advect, addForce,  divergence, project), one shader for rendering.
 
 ### Advection
 Advection simulates the process of the fluid transporting itself in a field. This is simulated by first calculating how much the particle has traveled using its velocity, then updating velocity using the sampled quantity at the new position. This compute shader is executed in groups of $16 \times 4 \times 4$ threads. The code snippet for advect shader is shown below.
