@@ -162,8 +162,7 @@ Our first toy implementation of the algorithm was using Processing written in Ja
 In the first version of our GPU implementation, we first discovered that we could combine steps to decrease the synchronization between processes. For example, if only one calculation depends on calculation of gradient and these two calculation are paralleled separately, we would combine these two steps and let them be assigned to GPU as one step. In this way, the unnecessary synchronization between these two steps would be eliminated. 
 Also, considering the overhead for communication between processes, we needed to decide if we can reduce synchronization between threads and calculate over stale data at the cost of the accuracy of the algorithm. It turned out that the numerical integration we used is sensitive to even minor error in the calculation. Actually, this error would be further enlarged at the simulation of later time steps and generate really inaccurate animation. Thus, eventually we went back to the older version that has more synchronization. At this point, we started thinking by changing the structure of the grid. Thus, like what we have mentioned in the previous paragraphs, we started to try out the best configuration of blocks assigned to GPU and got the data below for different configurations of a block.
 
-![alt text](fps_vs_dim.png )
-\includegraphics[tb]{fps_vs_dim.png}
+![alt text](https://github.com/jiatiansun/FireSim/blob/master/fps_vs_dim.png "Logo Title Text 1")
 
 Then to further improve our optimization, we think about compressing the texture with sparse matrix. Since the fire is not evenly spread out in the whole space. Normally, it is a speck of light in the space. Thus, we think it would be a good idea to represent state of particles inside each cell of the box using sparse matrix. Yet, this also indicates overhead for accessing a index table that stores index for nonzero data. After we finished the implementation of this sparse matrix representation of textures. There was not much improvement in the frame per second. Also, if the scene becomes smoky after we ignite multiple fire in the scene, the project becomes even a little bit slower than usual because of having the overhead of indirect access of data.
 
@@ -172,7 +171,9 @@ Another idea we had at early stage was to store locations of particles instead o
 ## Results
 
 ## Deliverable
+
 ![alt text](https://github.com/jiatiansun/FireSim/blob/master/fire.png "Logo Title Text 1")
+
 ![alt text](https://github.com/jiatiansun/FireSim/blob/master/green.png "Logo Title Text 1")
 
 Above is a screenshot of our final demo. The user can change the source of fire by dragging mouse around. User can also view the 3D box by rotating the box using right mouse drag.
@@ -183,18 +184,15 @@ Our initial goal of this project was to achieve real time simulation of fire. An
 Eventually, for simulation of fire inside a 200 x 200 x 200 box, we can achieve 37 FPS on the machine with NVIDIA GTX 970M GPU and 70 FPS on the machine with NVIDIA GeForce 1070 GPU.
 
 ## Fps at different assignment of Threads per block
-![alt text](fps_vs_dim.png )
 ![alt text](https://github.com/jiatiansun/FireSim/blob/master/fps_vs_dim.png "Logo Title Text 1")
 
 The image above is discussed in Section 3.3 and it shows that FPS increases as number of threads in each block dimension increases. Thus, we choose to assign $16 \times 8 \times 8$ threads to each block.
 
 ## Fps at different problem size
-![alt text](fps_vs_box_size.png )
-\includegraphics[0.8]{fps_vs_box_size.png}
+![alt text](https://github.com/jiatiansun/FireSim/blob/master/fps_vs_box_size.png "Logo Title Text 1")
 
 FPS decreases as the problem size increase. This is because that one line in our implementation makes use of a DirectX function called swapChain. This function transfers the prepared framebuffer from GPU to present it on the screen. This step is necessary and its cost cannot be avoided. As our problem size increases,for example, the n* n*n rendering box becomes 2n * 2n * 2n as shown in the graph, the time taken at this step of displaying the image quadratically increases because the image size becomes 4 times as large as before. Also, since operation takes 99\% for our computation time, so it bottlenecks our performance as the box size changes. 
 ## proportion of running time at different step
-![alt text](table.png )
 ![alt text](https://github.com/jiatiansun/FireSim/blob/master/table.png "Logo Title Text 1")
 
 This table demonstrates what previously described. SwapChain takes 99\% of our computation time.
