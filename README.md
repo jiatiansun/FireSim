@@ -4,7 +4,6 @@
 
 ![alt text](https://github.com/jiatiansun/FireSim/blob/master/fire.png)
 
-
 # Summary 
 
 This project aims to render fire in real-time by solving Navier Stoke equations. We first implemented particle state simulation and rendering on CPU using Processing and Java, then we switched to using Direct3D to run both simulation and rendering on GPU via compute shaders.
