@@ -40,7 +40,6 @@ We simulate fire by dividing the space into $n \times n \times n$ cubical cells,
 The program first initializes all resources (constant buffers, textures) vis Direct3D API call, then enters the main loop. In the main loop, particle states are first updated on GPU, then the results are rendered and presented.
 ## GPU Shaders
 All shaders are implemented as compute shaders, since our application doesn't required the standard graphics pipeline. There are five shaders (advect, addForce, divergence, Jacobi, project)  Navier-Stokes simulation, corresponding to the four stages of simulation. There is one shader used for rendering.
-![alt text](https://github.com/jiatiansun/FireSim/blob/master/pipeline.png "Logo Title Text 1")
 ![](https://github.com/jiatiansun/FireSim/blob/master/pipeline.png)
 
 ## Advection
