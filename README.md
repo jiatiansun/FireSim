@@ -2,7 +2,7 @@
 
 # Fire!
 
-![](https://github.com/jiatiansun/FireSim/blob/master/fire.png)
+![alt text](https://github.com/jiatiansun/FireSim/blob/master/fire.png)
 
 
 # Summary 
