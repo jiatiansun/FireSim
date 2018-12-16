@@ -173,7 +173,6 @@ Our initial goal of this project was to achieve real time simulation of fire. An
 Eventually, for simulation of fire inside a 200 x 200 x 200 box, we can achieve 37 FPS on the machine with NVIDIA GTX 970M GPU and 70 FPS on the machine with NVIDIA GeForce 1070 GPU.
 
 ## Fps at different assignment of Threads per block
-![alt text](https://github.com/jiatiansun/FireSim/blob/master/fps_vs_dim.png "Logo Title Text 1")
 ![alt text](fps_vs_dim.png)
 
 The image above is discussed in Section 3.3 and it shows that FPS increases as number of threads in each block dimension increases. Thus, we choose to assign $16 \times 8 \times 8$ threads to each block.
@@ -183,7 +182,6 @@ The image above is discussed in Section 3.3 and it shows that FPS increases as n
 
 FPS decreases as the problem size increase. This is because that one line in our implementation makes use of a DirectX function called swapChain. This function transfers the prepared framebuffer from GPU to present it on the screen. This step is necessary and its cost cannot be avoided. As our problem size increases,for example, the n* n*n rendering box becomes 2n * 2n * 2n as shown in the graph, the time taken at this step of displaying the image quadratically increases because the image size becomes 4 times as large as before. Also, since operation takes 99\% for our computation time, so it bottlenecks our performance as the box size changes. 
 ## proportion of running time at different step
-![alt text](https://github.com/jiatiansun/FireSim/blob/master/table.png "Logo Title Text 1")
 ![alt text](table.png)
 
 This table demonstrates what previously described. SwapChain takes 99\% of our computation time.
