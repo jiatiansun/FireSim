@@ -44,7 +44,8 @@ The program first initializes all resources (constant buffers, textures) vis Dir
 ## GPU Shaders
 All shaders are implemented as compute shaders, since our application doesn't required the standard graphics pipeline. There are five shaders (advect, addForce, divergence, Jacobi, project)  Navier-Stokes simulation, corresponding to the four stages of simulation. There is one shader used for rendering.
 ![alt text](https://github.com/jiatiansun/FireSim/blob/master/pipeline.png "Logo Title Text 1")
-       
+![](https://github.com/jiatiansun/FireSim/blob/master/pipeline.png)
+
 ## Advection
 Advection simulates the process of the fluid transporting itself in a field. This is simulated by first calculating how much the particle has traveled using its velocity, then updating velocity using the sampled quantity at the new position. This compute shader is executed in groups of $16 \times 4 \times 4$ threads. The code snippet for advect shader is shown below.
     	
