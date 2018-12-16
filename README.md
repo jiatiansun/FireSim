@@ -46,6 +46,7 @@ Advection simulates the process of the fluid transporting itself in a field. Thi
     	velocityRW[i] = velocity.SampleLevel(samLinear, newPos, 0);
         \end{verbatim}
         \subsubsection{Diffusion}
+	
 Because fluids that are viscous have a resistance to flow, diffusion of velocity occurs when fluids flow.  The viscous equation, when formulated in discretized form, is in the form of Poisson equations for velocity. An iterative technique for solving Poisson equations is called Jacobi iteration. This technique needs to be executed many times for it to converge. This can be cheaply done on GPU. In our implementation, we run Jacobi iteration 10 times in each time stamp. Jacobi technique requires calculating the divergence of velocity, then using divergence and velocity to calculate the new pressure value.
             
 The code snippet for divergence shader is presented below. An micro optimization is done by unrolling the for loop, which allows the system to determine memory access pattern in advance.
